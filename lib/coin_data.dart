@@ -1,3 +1,5 @@
+import 'networking.dart';
+
 const List<String> currenciesList = [
   'AUD',
   'BRL',
@@ -19,7 +21,8 @@ const List<String> currenciesList = [
   'SEK',
   'SGD',
   'USD',
-  'ZAR'
+  'ZAR',
+  'CHF'
 ];
 
 const List<String> cryptoList = [
@@ -28,4 +31,19 @@ const List<String> cryptoList = [
   'LTC',
 ];
 
-class CoinData {}
+const url = 'https://rest.coinapi.io/v1/exchangerate/';
+const apikey = '1245';
+
+//https://rest.coinapi.io/v1/exchangerate/BTC/USD?apikey=73034021
+class CoinDataBrain {
+
+  Future<dynamic> getCoinData({targetCurr, baseCurr}) async {
+    print(targetCurr);
+    print(baseCurr);
+    NetworkHelper networkhelper =
+        NetworkHelper('$url$baseCurr/$targetCurr?apikey=$apikey');
+
+    var coindData = await networkhelper.getData();
+    return coindData;
+  }
+}
